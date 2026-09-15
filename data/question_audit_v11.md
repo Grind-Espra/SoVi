@@ -1,0 +1,99 @@
+# SoVi v11 — final question audit
+
+10-pass automated audit. Semantic checks are heuristic: normalized semantic cores plus TF-IDF nearest-neighbour similarity.
+
+## classic
+- count: 3000
+- exact_duplicates: 0
+- normalized_duplicates: 0
+- semantic_core_duplicates: 0
+- missing_question_mark: 0
+- empty: 0
+- too_short_lt5_words: 0
+- too_long_gt190_chars: 0
+- open_question_flags: 0
+- broken_phrase_flags: 0
+- near_duplicate_flags_ge_0.92: 0
+- max_near_similarity: 0
+- max_same_opening_4w: 110
+- top_openings: [('переехали бы вы в', 110), ('готовы ли вы стать', 70), ('готовы ли вы жить', 58), ('выберетесь ли вы на', 55), ('хотели бы вы однажды', 41), ('есть ли у вас', 35), ('готовы ли вы отправиться', 33), ('пожелаете ли вы жить', 30), ('пожелаете ли вы быть', 28), ('решились бы вы однажды', 28)]
+
+## chaos
+- count: 1500
+- exact_duplicates: 0
+- normalized_duplicates: 0
+- semantic_core_duplicates: 0
+- missing_question_mark: 0
+- empty: 0
+- too_short_lt5_words: 0
+- too_long_gt190_chars: 0
+- open_question_flags: 0
+- broken_phrase_flags: 0
+- near_duplicate_flags_ge_0.92: 0
+- max_near_similarity: 0
+- max_same_opening_4w: 123
+- top_openings: [('устроило бы вас такое', 123), ('хотели бы вы однажды', 121), ('попробовали бы вы такой', 121), ('согласились бы вы прожить', 121), ('рискнули бы вы проверить', 120), ('справились бы вы с', 120), ('смогли бы вы привыкнуть', 120), ('дали бы вы этому', 119), ('выдержали бы вы неделю', 117), ('смогли бы вы сохранить', 116)]
+
+## horror
+- count: 1500
+- exact_duplicates: 0
+- normalized_duplicates: 0
+- semantic_core_duplicates: 0
+- missing_question_mark: 0
+- empty: 0
+- too_short_lt5_words: 0
+- too_long_gt190_chars: 0
+- open_question_flags: 0
+- broken_phrase_flags: 0
+- near_duplicate_flags_ge_0.92: 0
+- max_near_similarity: 0
+- max_same_opening_4w: 147
+- top_openings: [('продолжили бы вы путь', 147), ('хотели бы вы узнать', 145), ('продолжили бы расследование в', 144), ('решились бы вы проверить', 144), ('остались бы вы в', 144), ('рискнули бы вы остаться', 144), ('стали бы вы искать', 143), ('пошли бы вы дальше', 142), ('вернулись бы вы в', 141), ('провели бы вы ночь', 139)]
+
+## romance
+- count: 1500
+- exact_duplicates: 0
+- normalized_duplicates: 0
+- semantic_core_duplicates: 0
+- missing_question_mark: 0
+- empty: 0
+- too_short_lt5_words: 0
+- too_long_gt190_chars: 0
+- open_question_flags: 0
+- broken_phrase_flags: 0
+- near_duplicate_flags_ge_0.92: 0
+- max_near_similarity: 0
+- max_same_opening_4w: 26
+- top_openings: [('решились бы вы обсудить', 26), ('согласились бы вы обсудить', 25), ('попробовали бы вы обсудить', 22), ('попробовали бы вы дать', 20), ('готовы ли вы обсудить', 19), ('решились бы вы дать', 18), ('смогли бы вы обсудить', 18), ('рискнули бы вы обсудить', 18), ('решились бы вы сказать', 17), ('готовы ли вы дать', 16)]
+
+## booklover
+- count: 1500
+- exact_duplicates: 0
+- normalized_duplicates: 0
+- semantic_core_duplicates: 0
+- missing_question_mark: 0
+- empty: 0
+- too_short_lt5_words: 0
+- too_long_gt190_chars: 0
+- open_question_flags: 0
+- broken_phrase_flags: 0
+- near_duplicate_flags_ge_0.92: 0
+- max_near_similarity: 0
+- max_same_opening_4w: 177
+- top_openings: [('хотели бы вы однажды', 177), ('согласились бы вы прочитать', 77), ('попробовали бы вы прочитать', 74), ('решились бы вы прочитать', 68), ('могли бы вы прочитать', 59), ('готовы ли вы прочитать', 56), ('попробовали бы вы читать', 36), ('согласились бы вы читать', 34), ('решились бы вы читать', 32), ('готовы ли вы читать', 30)]
+
+## dilemma
+- count: 1500
+- exact_duplicates: 0
+- normalized_duplicates: 0
+- semantic_core_duplicates: 0
+- missing_question_mark: 0
+- empty: 0
+- too_short_lt5_words: 0
+- too_long_gt190_chars: 0
+- open_question_flags: 0
+- broken_phrase_flags: 0
+- near_duplicate_flags_ge_0.92: 0
+- max_near_similarity: 0
+- max_same_opening_4w: 199
+- top_openings: [('пошли бы вы на', 199), ('выбрали бы вы не', 81), ('выбрали бы вы отказаться', 61), ('выбрали бы вы признать', 56), ('решились бы вы не', 39), ('согласились бы вы не', 39), ('стали бы вы не', 39), ('выбрали бы вы сказать', 33), ('решились бы вы отказаться', 31), ('согласились бы вы отказаться', 30)]

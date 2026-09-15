@@ -1,0 +1,11 @@
+name: sovi
+
+services:
+  sovi:
+    build: .
+    restart: unless-stopped
+    init: true
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
