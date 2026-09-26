@@ -181,15 +181,23 @@ class GameManager:
                     body+='\n👥 <b>Кто голосовал:</b>\n✅ <b>«Да» ('+str(len(yes_names))+')</b>\n'+(''.join('• '+n+'\n' for n in yes_names) if yes_names else '• —\n')
                     body+='❌ <b>«Нет» ('+str(len(no_names))+')</b>\n'+(''.join('• '+n+'\n' for n in no_names) if no_names else '• —\n')
                     if pending: body+='⏳ <b>Не ответили ('+str(len(pending))+')</b>\n'+'\n'.join('• '+n for n in pending)+'\n'
-            await self.bot.send_message(chat_id=game['chat_id'],text=body,reply_markup=next_question_keyboard(game_id))
-            await db.clear_current_question(self.settings.db_path,game_id); await db.increment_question_index(self.settings.db_path,game_id)
+            await self.bot.send_message(
+                chat_id=game['chat_id'],
+                text=body,
+                reply_markup=next_question_keyboard(game_id),
+            )
+            # Move to the next index atomically. This is the critical transition:
+            # an old timeout/callback can no longer advance the same question twice.
+            advanced = await db.advance_question(self.settings.db_path, game_id, qid)
+            if not advanced:
+                return
             # Unlock lightweight achievements per voter.
             for uid,_,_,_ in votes:
                 codes=['tie_breaker'] if tie else []
                 if int(cfg['anonymous_results']): codes.append('anon_respect')
                 await unlock_and_collect(self.settings.db_path,uid,codes)
                 await evaluate_user_achievements(self.settings.db_path,uid)
-        self.cancel(game_id); await asyncio.sleep(2); await self.send_next_question(game_id)
+        self.cancel(game_id); await asyncio.sleep(self.settings.result_delay_seconds); await self.send_next_question(game_id)
 
     async def next_question_now(self,game_id:int)->bool:
         async with self.locks[game_id]:

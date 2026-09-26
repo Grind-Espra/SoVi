@@ -258,8 +258,31 @@ async def set_current_question(db_path, game_id, qid, index, started, message_id
 
 async def clear_current_question(db_path, game_id):
     async with aiosqlite.connect(db_path) as c:
-        await c.execute('UPDATE games SET current_question_id=NULL,current_question_started_at=NULL,current_question_message_id=NULL WHERE id=?', (game_id,))
+        await c.execute(
+            'UPDATE games SET current_question_id=NULL,current_question_started_at=NULL,current_question_message_id=NULL WHERE id=?',
+            (game_id,),
+        )
         await c.commit()
+
+
+async def advance_question(db_path: str, game_id: int, expected_question_id: int) -> bool:
+    """Atomically close the current question and move the game to the next index.
+
+    The expected question id prevents an old timeout/callback from advancing the
+    game a second time after another task has already closed the question.
+    """
+    async with aiosqlite.connect(db_path) as c:
+        cur = await c.execute(
+            '''UPDATE games
+               SET question_index=question_index+1,
+                   current_question_id=NULL,
+                   current_question_started_at=NULL,
+                   current_question_message_id=NULL
+               WHERE id=? AND status='running' AND current_question_id=?''',
+            (game_id, expected_question_id),
+        )
+        await c.commit()
+        return cur.rowcount == 1
 
 
 async def replace_game_questions(db_path, game_id, question_ids):
